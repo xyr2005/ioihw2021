@@ -61,11 +61,15 @@ bool cross(const segment &a,const segment &b)
 {
 	long double A=(a.a-b.a)^(b.b-b.a);
 	long double B=(a.b-b.a)^(b.b-b.a);
-	return ((abs(A)<=eps)!=(abs(B)<=eps))||((A<0)!=(B<0));
+	return (A<=0)!=(B<0);
+}
+inline bool checksameslope(const vec &a,const vec &b)
+{
+	return abs(a^b)<=eps;
 }
 inline bool iscross(const segment &a,const segment &b)
 {
-	return (a.a-a.b)!=(b.a-b.b)&&(a.b-a.a)!=(b.a-b.b)&&cross(a,b)&&cross(b,a);
+	return !checksameslope(a.a-a.b,b.a-b.b)&&cross(a,b)&&cross(b,a);
 }
 inline vec getpoint(const segment &a,const segment &b)
 {
